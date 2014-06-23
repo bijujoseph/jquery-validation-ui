@@ -31,21 +31,27 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
     dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
-        // runtime 'mysql:mysql-connector-java:5.1.5' 
+        // runtime 'mysql:mysql-connector-java:5.1.5'
         if (grailsVersion[0..2].toDouble() >= 2.2) {
             test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
         }
         //build "org.springframework:spring-orm:3.2.5.RELEASE"
     }
 	plugins {
-        if (grailsVersion[0..2].toDouble() >= 2.3) {
-		  runtime ':hibernate:3.6.10.2'
+        build(":tomcat:$grailsVersion",
+                ":release:2.2.1",
+                ":rest-client-builder:1.0.3") {
+            export = false
         }
-		runtime ":jquery:1.7.2"
-		compile ":constraints:0.6.0" 
-		compile ":jquery-validation:1.9" 
-        build ":release:3.0.1"
+
+        runtime ":hibernate:$grailsVersion"
+        runtime ":jquery:1.8.3"
+        runtime ":resources:1.2"
+
+        compile ":constraints:0.6.0"
+
+        compile ":jquery-validation:1.11.1"
+
 	}
 }
